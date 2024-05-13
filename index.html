@@ -40,7 +40,7 @@
         <script>
         var map = L.map('map', {
             zoomControl:true, maxZoom:28, minZoom:1
-        }).fitBounds([[38.9150350873474,-92.36560837061141],[38.96825244339387,-92.27332321436141]]);
+        }).fitBounds([[38.91668129838682,-92.35815538924413],[38.978146198392196,-92.25156802147009]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -516,7 +516,7 @@
                 lineJoin: 'bevel',
                 weight: 5.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case 'motorway_link':
@@ -529,7 +529,7 @@
                 lineJoin: 'bevel',
                 weight: 5.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case 'primary':
@@ -542,7 +542,7 @@
                 lineJoin: 'bevel',
                 weight: 4.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case 'primary_link':
@@ -555,7 +555,7 @@
                 lineJoin: 'bevel',
                 weight: 4.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case 'residential':
@@ -568,7 +568,7 @@
                 lineJoin: 'bevel',
                 weight: 1.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case 'secondary':
@@ -581,7 +581,7 @@
                 lineJoin: 'bevel',
                 weight: 4.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case 'secondary_link':
@@ -594,7 +594,7 @@
                 lineJoin: 'bevel',
                 weight: 3.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case 'tertiary':
@@ -607,7 +607,7 @@
                 lineJoin: 'bevel',
                 weight: 2.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 case 'tertiary_link':
@@ -620,7 +620,7 @@
                 lineJoin: 'bevel',
                 weight: 2.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
                 default:
@@ -633,7 +633,7 @@
                 lineJoin: 'bevel',
                 weight: 1.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
                     break;
             }
@@ -643,7 +643,7 @@
         map.getPane('pane_Roads_1').style['mix-blend-mode'] = 'normal';
         var layer_Roads_1 = new L.geoJson(json_Roads_1, {
             attribution: '',
-            interactive: true,
+            interactive: false,
             dataVar: 'json_Roads_1',
             layerName: 'layer_Roads_1',
             pane: 'pane_Roads_1',
@@ -659,7 +659,8 @@
                         <td>' + (feature.properties['name'] !== null ? autolinker.link(feature.properties['name'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2"><strong>Type</strong><br />' + (feature.properties['Type'] !== null ? autolinker.link(feature.properties['Type'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">Type</th>\
+                        <td class="visible-with-data" id="Type">' + (feature.properties['Type'] !== null ? autolinker.link(feature.properties['Type'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
@@ -741,7 +742,7 @@
                 pane: 'pane_Merged_2',
                 opacity: 1,
                 color: 'rgba(157,127,22,1.0)',
-                dashArray: '5,1',
+                dashArray: '',
                 lineCap: 'round',
                 lineJoin: 'round',
                 weight: 3.0,
@@ -767,7 +768,7 @@
                 pane: 'pane_Merged_2',
                 opacity: 1,
                 color: 'rgba(0,0,0,1.0)',
-                dashArray: '5,1',
+                dashArray: '',
                 lineCap: 'round',
                 lineJoin: 'round',
                 weight: 3.0,

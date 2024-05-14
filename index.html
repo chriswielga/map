@@ -27,6 +27,7 @@
         <script src="js/leaflet.js"></script>
         <script src="js/L.Control.Layers.Tree.min.js"></script>
         <script src="js/L.Control.Locate.min.js"></script>
+        <script src="js/leaflet-svg-shape-markers.min.js"></script>
         <script src="js/leaflet.rotatedMarker.js"></script>
         <script src="js/leaflet.pattern.js"></script>
         <script src="js/leaflet-hash.js"></script>
@@ -37,10 +38,11 @@
         <script src="js/leaflet-measure.js"></script>
         <script src="data/Roads_1.js"></script>
         <script src="data/Merged_2.js"></script>
+        <script src="data/PointsofInterest_simple_3.js"></script>
         <script>
         var map = L.map('map', {
             zoomControl:true, maxZoom:28, minZoom:1
-        }).fitBounds([[38.91668129838682,-92.35815538924413],[38.978146198392196,-92.25156802147009]]);
+        }).fitBounds([[38.92427402132867,-92.35260547033194],[38.95500647133136,-92.29931178644493]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -516,7 +518,7 @@
                 lineJoin: 'bevel',
                 weight: 5.0,
                 fillOpacity: 0,
-                interactive: false,
+                interactive: true,
             }
                     break;
                 case 'motorway_link':
@@ -529,7 +531,7 @@
                 lineJoin: 'bevel',
                 weight: 5.0,
                 fillOpacity: 0,
-                interactive: false,
+                interactive: true,
             }
                     break;
                 case 'primary':
@@ -542,7 +544,7 @@
                 lineJoin: 'bevel',
                 weight: 4.0,
                 fillOpacity: 0,
-                interactive: false,
+                interactive: true,
             }
                     break;
                 case 'primary_link':
@@ -555,7 +557,7 @@
                 lineJoin: 'bevel',
                 weight: 4.0,
                 fillOpacity: 0,
-                interactive: false,
+                interactive: true,
             }
                     break;
                 case 'residential':
@@ -568,7 +570,7 @@
                 lineJoin: 'bevel',
                 weight: 1.0,
                 fillOpacity: 0,
-                interactive: false,
+                interactive: true,
             }
                     break;
                 case 'secondary':
@@ -581,7 +583,7 @@
                 lineJoin: 'bevel',
                 weight: 4.0,
                 fillOpacity: 0,
-                interactive: false,
+                interactive: true,
             }
                     break;
                 case 'secondary_link':
@@ -594,7 +596,7 @@
                 lineJoin: 'bevel',
                 weight: 3.0,
                 fillOpacity: 0,
-                interactive: false,
+                interactive: true,
             }
                     break;
                 case 'tertiary':
@@ -607,7 +609,7 @@
                 lineJoin: 'bevel',
                 weight: 2.0,
                 fillOpacity: 0,
-                interactive: false,
+                interactive: true,
             }
                     break;
                 case 'tertiary_link':
@@ -620,7 +622,7 @@
                 lineJoin: 'bevel',
                 weight: 2.0,
                 fillOpacity: 0,
-                interactive: false,
+                interactive: true,
             }
                     break;
                 default:
@@ -633,7 +635,7 @@
                 lineJoin: 'bevel',
                 weight: 1.0,
                 fillOpacity: 0,
-                interactive: false,
+                interactive: true,
             }
                     break;
             }
@@ -643,7 +645,7 @@
         map.getPane('pane_Roads_1').style['mix-blend-mode'] = 'normal';
         var layer_Roads_1 = new L.geoJson(json_Roads_1, {
             attribution: '',
-            interactive: false,
+            interactive: true,
             dataVar: 'json_Roads_1',
             layerName: 'layer_Roads_1',
             pane: 'pane_Roads_1',
@@ -805,8 +807,231 @@
         });
         bounds_group.addLayer(layer_Merged_2);
         map.addLayer(layer_Merged_2);
+        function pop_PointsofInterest_simple_3(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fid'] !== null ? autolinker.link(feature.properties['fid'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fid_1'] !== null ? autolinker.link(feature.properties['fid_1'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['id'] !== null ? autolinker.link(feature.properties['id'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Type'] !== null ? autolinker.link(feature.properties['Type'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+            var popup = layer.getPopup();
+            var content = popup.getContent();
+            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
+            popup.setContent(updatedContent);
+        }
+
+        function style_PointsofInterest_simple_3_0(feature) {
+            switch(String(feature.properties['Type'])) {
+                case 'Bench':
+                    return {
+                pane: 'pane_PointsofInterest_simple_3',
+                radius: 8.0,
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,255,255,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Coffee':
+                    return {
+                pane: 'pane_PointsofInterest_simple_3',
+                radius: 8.0,
+                opacity: 1,
+                color: 'rgba(83,83,83,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(203,203,203,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Disc golf basket ':
+                    return {
+                pane: 'pane_PointsofInterest_simple_3',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(159,68,233,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Home':
+                    return {
+                pane: 'pane_PointsofInterest_simple_3',
+                shape: 'triangle',
+                radius: 5.6,
+                opacity: 1,
+                color: 'rgba(255,255,255,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(0,0,0,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Restroom':
+                    return {
+                pane: 'pane_PointsofInterest_simple_3',
+                shape: 'diamond',
+                radius: 8.8,
+                opacity: 1,
+                color: 'rgba(61,128,53,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(84,176,74,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Table':
+                    return {
+                pane: 'pane_PointsofInterest_simple_3',
+                shape: 'diamond',
+                radius: 8.8,
+                opacity: 1,
+                color: 'rgba(128,17,25,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(219,30,42,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Trash':
+                    return {
+                pane: 'pane_PointsofInterest_simple_3',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(228,184,63,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Water':
+                    return {
+                pane: 'pane_PointsofInterest_simple_3',
+                radius: 8.0,
+                opacity: 1,
+                color: 'rgba(50,87,128,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(72,123,182,1.0)',
+                interactive: true,
+            }
+                    break;
+                default:
+                    return {
+                pane: 'pane_PointsofInterest_simple_3',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(227,128,106,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Unmarked Crossing':
+                    return {
+                pane: 'pane_PointsofInterest_simple_3',
+                shape: 'triangle',
+                radius: 8.0,
+                opacity: 1,
+                color: 'rgba(61,128,53,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(238,231,30,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_PointsofInterest_simple_3');
+        map.getPane('pane_PointsofInterest_simple_3').style.zIndex = 403;
+        map.getPane('pane_PointsofInterest_simple_3').style['mix-blend-mode'] = 'normal';
+        var layer_PointsofInterest_simple_3 = new L.geoJson(json_PointsofInterest_simple_3, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_PointsofInterest_simple_3',
+            layerName: 'layer_PointsofInterest_simple_3',
+            pane: 'pane_PointsofInterest_simple_3',
+            onEachFeature: pop_PointsofInterest_simple_3,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.shapeMarker(latlng, style_PointsofInterest_simple_3_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_PointsofInterest_simple_3);
+        map.addLayer(layer_PointsofInterest_simple_3);
+        map.on("zoomend", function(e) {
+            if (map.getZoom() <= 19 && map.getZoom() >= 15) {
+                map.addLayer(layer_PointsofInterest_simple_3);
+            } else if (map.getZoom() > 19 || map.getZoom() < 15) {
+                map.removeLayer(layer_PointsofInterest_simple_3);
+            }
+        });
+            if (map.getZoom() <= 19 && map.getZoom() >= 15) {
+                map.addLayer(layer_PointsofInterest_simple_3);
+            } else if (map.getZoom() > 19 || map.getZoom() < 15) {
+                map.removeLayer(layer_PointsofInterest_simple_3);
+            }
         var baseMaps = {};
         var overlaysTree = [
+            {label: 'PointsofInterest_simple<br /><table><tr><td style="text-align: center;"><img src="legend/PointsofInterest_simple_3_Bench0.png" /></td><td>Bench</td></tr><tr><td style="text-align: center;"><img src="legend/PointsofInterest_simple_3_Coffee1.png" /></td><td>Coffee</td></tr><tr><td style="text-align: center;"><img src="legend/PointsofInterest_simple_3_Discgolfbasket2.png" /></td><td>Disc golf basket </td></tr><tr><td style="text-align: center;"><img src="legend/PointsofInterest_simple_3_Home3.png" /></td><td>Home</td></tr><tr><td style="text-align: center;"><img src="legend/PointsofInterest_simple_3_Restroom4.png" /></td><td>Restroom</td></tr><tr><td style="text-align: center;"><img src="legend/PointsofInterest_simple_3_Table5.png" /></td><td>Table</td></tr><tr><td style="text-align: center;"><img src="legend/PointsofInterest_simple_3_Trash6.png" /></td><td>Trash</td></tr><tr><td style="text-align: center;"><img src="legend/PointsofInterest_simple_3_Water7.png" /></td><td>Water</td></tr><tr><td style="text-align: center;"><img src="legend/PointsofInterest_simple_3_8.png" /></td><td></td></tr><tr><td style="text-align: center;"><img src="legend/PointsofInterest_simple_3_UnmarkedCrossing9.png" /></td><td>Unmarked Crossing</td></tr></table>', layer: layer_PointsofInterest_simple_3},
             {label: 'Merged<br /><table><tr><td style="text-align: center;"><img src="legend/Merged_2_0.png" /></td><td></td></tr><tr><td style="text-align: center;"><img src="legend/Merged_2_Path1.png" /></td><td>Path</td></tr><tr><td style="text-align: center;"><img src="legend/Merged_2_Sidewalk2.png" /></td><td>Sidewalk</td></tr><tr><td style="text-align: center;"><img src="legend/Merged_2_Street3.png" /></td><td>Street</td></tr><tr><td style="text-align: center;"><img src="legend/Merged_2_Trail4.png" /></td><td>Trail</td></tr><tr><td style="text-align: center;"><img src="legend/Merged_2_Wild5.png" /></td><td>Wild</td></tr><tr><td style="text-align: center;"><img src="legend/Merged_2_6.png" /></td><td></td></tr><tr><td style="text-align: center;"><img src="legend/Merged_2_Road7.png" /></td><td>Road</td></tr><tr><td style="text-align: center;"><img src="legend/Merged_2_Inside8.png" /></td><td>Inside</td></tr></table>', layer: layer_Merged_2},
             {label: 'Roads<br /><table><tr><td style="text-align: center;"><img src="legend/Roads_1_motorway0.png" /></td><td>motorway</td></tr><tr><td style="text-align: center;"><img src="legend/Roads_1_motorwaylink1.png" /></td><td>motorway_link</td></tr><tr><td style="text-align: center;"><img src="legend/Roads_1_primary2.png" /></td><td>primary</td></tr><tr><td style="text-align: center;"><img src="legend/Roads_1_primarylink3.png" /></td><td>primary_link</td></tr><tr><td style="text-align: center;"><img src="legend/Roads_1_residential4.png" /></td><td>residential</td></tr><tr><td style="text-align: center;"><img src="legend/Roads_1_secondary5.png" /></td><td>secondary</td></tr><tr><td style="text-align: center;"><img src="legend/Roads_1_secondarylink6.png" /></td><td>secondary_link</td></tr><tr><td style="text-align: center;"><img src="legend/Roads_1_tertiary7.png" /></td><td>tertiary</td></tr><tr><td style="text-align: center;"><img src="legend/Roads_1_tertiarylink8.png" /></td><td>tertiary_link</td></tr><tr><td style="text-align: center;"><img src="legend/Roads_1_9.png" /></td><td></td></tr></table>', layer: layer_Roads_1},
             {label: "OSM Humanitarian", layer: layer_OSMHumanitarian_0},]

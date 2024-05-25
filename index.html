@@ -40,7 +40,7 @@
         <script>
         var map = L.map('map', {
             zoomControl:true, maxZoom:28, minZoom:1
-        }).fitBounds([[38.92335508907087,-92.35675634023231],[38.9789625619363,-92.26032644022801]]);
+        }).fitBounds([[38.8780213495529,-92.411779300449],[38.98923629528377,-92.2189195004404]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -97,6 +97,9 @@
         map.addLayer(layer_OSMHumanitarian_0);
         function pop_Merged_1(feature, layer) {
             var popupContent = '<table>\
+                    <tr>\
+                        <td class="visible-with-data" id="fid"colspan="2"><strong>fid</strong><br />' + (feature.properties['fid'] !== null ? autolinker.link(feature.properties['fid'].toLocaleString()) : '') + '</td>\
+                    </tr>\
                     <tr>\
                         <td colspan="2">' + (feature.properties['name'] !== null ? autolinker.link(feature.properties['name'].toLocaleString()) : '') + '</td>\
                     </tr>\
@@ -273,17 +276,33 @@
                 case 'Bench':
                     return {
                 pane: 'pane_PointsofInterest_simple_2',
-                shape: 'square',
                 radius: 4.0,
                 opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
+                color: 'rgba(0,0,0,1.0)',
                 dashArray: '',
                 lineCap: 'butt',
                 lineJoin: 'miter',
-                weight: 1,
+                weight: 2.0,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(20,143,53,1.0)',
+                fillColor: 'rgba(255,255,255,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Caution':
+                    return {
+                pane: 'pane_PointsofInterest_simple_2',
+                shape: 'triangle',
+                radius: 8.0,
+                opacity: 1,
+                color: 'rgba(128,17,25,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(219,169,30,1.0)',
                 interactive: true,
             }
                     break;
@@ -291,7 +310,7 @@
                     return {
                 pane: 'pane_PointsofInterest_simple_2',
                 shape: 'diamond',
-                radius: 8.8,
+                radius: 6.0,
                 opacity: 1,
                 color: 'rgba(61,128,53,1.0)',
                 dashArray: '',
@@ -307,6 +326,23 @@
                 case 'Table':
                     return {
                 pane: 'pane_PointsofInterest_simple_2',
+                shape: 'square',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(128,17,25,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(105,7,14,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Trash':
+                    return {
+                pane: 'pane_PointsofInterest_simple_2',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -316,56 +352,39 @@
                 weight: 1,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(226,118,156,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'Trash':
-                    return {
-                pane: 'pane_PointsofInterest_simple_2',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(0,0,0,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 2.0,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(255,255,255,1.0)',
-                interactive: true,
-            }
-                    break;
-                case 'Unmarked Crossing':
-                    return {
-                pane: 'pane_PointsofInterest_simple_2',
-                shape: 'triangle',
-                radius: 8.0,
-                opacity: 1,
-                color: 'rgba(128,17,25,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 2.0,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(219,165,30,1.0)',
+                fillColor: 'rgba(226,181,66,1.0)',
                 interactive: true,
             }
                     break;
                 case 'Water':
                     return {
                 pane: 'pane_PointsofInterest_simple_2',
-                radius: 8.0,
+                radius: 6.0,
                 opacity: 1,
-                color: 'rgba(50,87,128,1.0)',
+                color: 'rgba(117,58,128,1.0)',
                 dashArray: '',
                 lineCap: 'butt',
                 lineJoin: 'miter',
                 weight: 2.0,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(72,123,182,1.0)',
+                fillColor: 'rgba(149,74,162,1.0)',
+                interactive: true,
+            }
+                    break;
+                default:
+                    return {
+                pane: 'pane_PointsofInterest_simple_2',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(237,129,237,1.0)',
                 interactive: true,
             }
                     break;
@@ -405,7 +424,7 @@
             }
         var baseMaps = {};
         var overlaysTree = [
-            {label: 'PointsofInterest_simple<br /><table><tr><td style="text-align: center;"><img src="legend/PointsofInterest_simple_2_Bench0.png" /></td><td>Bench</td></tr><tr><td style="text-align: center;"><img src="legend/PointsofInterest_simple_2_Restroom1.png" /></td><td>Restroom</td></tr><tr><td style="text-align: center;"><img src="legend/PointsofInterest_simple_2_Table2.png" /></td><td>Table</td></tr><tr><td style="text-align: center;"><img src="legend/PointsofInterest_simple_2_Trash3.png" /></td><td>Trash</td></tr><tr><td style="text-align: center;"><img src="legend/PointsofInterest_simple_2_UnmarkedCrossing4.png" /></td><td>Unmarked Crossing</td></tr><tr><td style="text-align: center;"><img src="legend/PointsofInterest_simple_2_Water5.png" /></td><td>Water</td></tr></table>', layer: layer_PointsofInterest_simple_2},
+            {label: 'PointsofInterest_simple<br /><table><tr><td style="text-align: center;"><img src="legend/PointsofInterest_simple_2_Bench0.png" /></td><td>Bench</td></tr><tr><td style="text-align: center;"><img src="legend/PointsofInterest_simple_2_Caution1.png" /></td><td>Caution</td></tr><tr><td style="text-align: center;"><img src="legend/PointsofInterest_simple_2_Restroom2.png" /></td><td>Restroom</td></tr><tr><td style="text-align: center;"><img src="legend/PointsofInterest_simple_2_Table3.png" /></td><td>Table</td></tr><tr><td style="text-align: center;"><img src="legend/PointsofInterest_simple_2_Trash4.png" /></td><td>Trash</td></tr><tr><td style="text-align: center;"><img src="legend/PointsofInterest_simple_2_Water5.png" /></td><td>Water</td></tr><tr><td style="text-align: center;"><img src="legend/PointsofInterest_simple_2_6.png" /></td><td></td></tr></table>', layer: layer_PointsofInterest_simple_2},
             {label: 'Merged<br /><table><tr><td style="text-align: center;"><img src="legend/Merged_1_0.png" /></td><td></td></tr><tr><td style="text-align: center;"><img src="legend/Merged_1_Path1.png" /></td><td>Path</td></tr><tr><td style="text-align: center;"><img src="legend/Merged_1_Sidewalk2.png" /></td><td>Sidewalk</td></tr><tr><td style="text-align: center;"><img src="legend/Merged_1_Street3.png" /></td><td>Street</td></tr><tr><td style="text-align: center;"><img src="legend/Merged_1_Trail4.png" /></td><td>Trail</td></tr><tr><td style="text-align: center;"><img src="legend/Merged_1_Wild5.png" /></td><td>Wild</td></tr><tr><td style="text-align: center;"><img src="legend/Merged_1_6.png" /></td><td></td></tr><tr><td style="text-align: center;"><img src="legend/Merged_1_Road7.png" /></td><td>Road</td></tr><tr><td style="text-align: center;"><img src="legend/Merged_1_Inside8.png" /></td><td>Inside</td></tr></table>', layer: layer_Merged_1},
             {label: "OSM Humanitarian", layer: layer_OSMHumanitarian_0},]
         var lay = L.control.layers.tree(null, overlaysTree,{

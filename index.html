@@ -344,7 +344,7 @@
         bounds_group.addLayer(layer_PointsofInterest_simple_2);
         map.addLayer(layer_PointsofInterest_simple_2);
         map.on("zoomend", function(e) {
-            if (map.getZoom() <= 19 && map.getZoom() >= 15) {
+            if (map.getZoom() <= 23 && map.getZoom() >= 15) {
                 map.addLayer(layer_PointsofInterest_simple_2);
             } else if (map.getZoom() > 19 || map.getZoom() < 15) {
                 map.removeLayer(layer_PointsofInterest_simple_2);
